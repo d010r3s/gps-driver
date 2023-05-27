@@ -8,15 +8,15 @@ printf("Start...\n");
     return 0;
 }
 
-void free() {
-   printf("Cleanup...\n");
+void cleanup() {
+    printf("Cleanup...\n");
     sleep(1);
 }
 
 int data(float* latitude, float* longitude, float* altitude) {
-    *latitude = 1;
-    *longitude = 2;
-    *altitude = 3;
+    *latitude = 1.;
+    *longitude = 2.;
+    *altitude = 3.;
     sleep(1);
     return 0; 
 }
