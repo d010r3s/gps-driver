@@ -1,9 +1,9 @@
-#ifndef GPS_DRIVER_H
-#define GPS_DRIVER_H
+#ifndef GPS_DAEMON_H
+#define GPS_DAEMON_H
 
-int gps_driver_init();
-void cleanup();
-int data(float* latitude, float* longitude, float* altitude);
-int set_mode(int mode);
+#include <stdio.h>
+#include "gps.h"
+
+void process_coordinates(float latitude, float longitude, float altitude, int mode);
 
 #endif
