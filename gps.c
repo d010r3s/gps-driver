@@ -3,6 +3,18 @@ void cleanup() {
     printf("Performing cleanup...\n");
     sleep(1);
 }
+int gps_driver_init() {
+printf("Start...\n");
+    sleep(1); 
+    return 0;
+}
+int data(float* latitude, float* longitude, float* altitude) {
+    *latitude = 1.;
+    *longitude = 2.;
+    *altitude = 3.;
+    sleep(1);
+    return 0; 
+}
 void process_coordinates(float latitude, float longitude, float altitude, int mode) {
     printf("Mode: %d\n", mode);
 
