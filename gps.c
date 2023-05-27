@@ -1,5 +1,8 @@
 #include "gps.h"
-
+void cleanup() {
+    printf("Performing cleanup...\n");
+    sleep(1);
+}
 void process_coordinates(float latitude, float longitude, float altitude, int mode) {
     printf("Mode: %d\n", mode);
 
