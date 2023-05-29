@@ -5,7 +5,7 @@
 #include <arpa/inet.h>
 #include "gps.h"
 
-#define PORT 8080
+#define PORT 1024
 
 int main() {
     if (gps_driver_init() != 0) {
