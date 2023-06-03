@@ -5,4 +5,5 @@
 
 void process_coordinates(float latitude, float longitude, float altitude, int mode);
 int gps_driver_init();
+void cleanup();
 #endif
