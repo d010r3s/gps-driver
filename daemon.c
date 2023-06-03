@@ -1,13 +1,8 @@
-#include <stdio.h>
-#include <unistd.h>
-#include <sys/socket.h>
-#include <netinet/in.h>
-#include <arpa/inet.h>
 #include "gps.h"
 
 #define PORT 1024
 
-int main() {
+int demon() {
     if (gps_driver_init() != 0) {
         printf("Error\n");
         return 1;
@@ -21,35 +16,34 @@ int main() {
         return 1;
     }
 
-    struct sockaddr_in server_addr;
-    server_addr.sin_family = AF_INET;
-    server_addr.sin_addr.s_addr = inet_addr("127.0.0.1");
-    server_addr.sin_port = htons(PORT);
+    // struct sockaddr_in server_addr;
+    // server_addr.sin_family = AF_INET;
+    // server_addr.sin_addr.s_addr = inet_addr("127.0.0.1");
+    // server_addr.sin_port = htons(PORT);
 
-    if (connect(sockfd, (struct sockaddr *)&server_addr, sizeof(server_addr)) < 0) {
-        perror("Connection failed");
-        return 1;
-    }
+    // if (connect(sockfd, (struct sockaddr *)&server_addr, sizeof(server_addr)) < 0) {
+    //     perror("Connection failed");
+    //     return 1;
+    // }
 
     while (1) {
         float latitude, longitude, altitude;
-        if (data(&latitude, &longitude, &altitude) != 0) {
-            printf("Error\n");
+        if (!get_longitude() && !get_altitude() && !get_latitude()) {
+            printf("error\n");
             continue; 
         }
 
-        printf("Coordinates:\n");
-        printf("Latitude: %f\nLongitude: %f\nAltitude: %f\n", latitude, longitude, altitude);
+        printf("coordinates:\n");
+        printf("latitude: %f\nlongitude: %f\naltitude: %f\n", get_latitude(), get_longitude(), get_altitude());
         sleep(1);
-
-        send(sockfd, &latitude, sizeof(latitude), 0);
-        send(sockfd, &longitude, sizeof(longitude), 0);
-        send(sockfd, &altitude, sizeof(altitude), 0);
-
-        process_coordinates(latitude, longitude, altitude, mode);
+        process_coordinates(get_latitude(), get_longitude(), get_altitude(), mode);
+        // send(sockfd, &latitude, sizeof(latitude), 0);
+        // send(sockfd, &longitude, sizeof(longitude), 0);
+        // send(sockfd, &altitude, sizeof(altitude), 0);
+        cleanup();
+        return 0;
     }
 
-    cleanup();
-    close(sockfd);
-    return 0;
+
+    // close(sockfd);
 }
