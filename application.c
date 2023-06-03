@@ -1,31 +1,30 @@
 #include "gps.h"
-#include <stdio.h>
 
 int main() {
     gps_driver_init();
-    process_coordinates(float latitude, float longitude, float altitude, int mode);
-
     while (1) {
         printf("gps tracker\n");
-        printf("1. start\n");
-        printf("2. stop\n");
+        printf("1. start tracking\n");
+        printf("2. stop tracking\n");
         printf("3. exit\n");
         printf("enter your choice: ");
-
-        int choice;
+        
+        int choice, mode;
         scanf("%d", &choice);
-
+       
         switch (choice) {
             case 1:
                 sleep(1);
-                printf("Tracking started.\n");
-                break;
+                printf("tracking started. choose mode (1-2):\n");
+                scanf("%d", &mode);
+                demon();
             case 2:
                 sleep(1);
-                printf("Tracking stopped.\n");
+                printf("tracking stopped.\n");
                 break;
             case 3:
-                printf("Exiting...\n");
+                cleanup();
+                printf("exiting...\n");
                 return 0;
             default:
                 printf("invalid choice\n");
