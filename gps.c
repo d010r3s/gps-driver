@@ -4,7 +4,7 @@ void cleanup() {
     sleep(1);
 }
 int gps_driver_init() {
-printf("Start...\n");
+    printf("Start...\n");
     sleep(1); 
     return 0;
 }
