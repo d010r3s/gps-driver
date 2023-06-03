@@ -3,6 +3,7 @@
 
 int main() {
     gps_driver_init();
+    process_coordinates();
 
     while (1) {
         printf("gps tracker\n");
