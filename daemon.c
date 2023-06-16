@@ -41,7 +41,6 @@ int demon() {
         // send(sockfd, &longitude, sizeof(longitude), 0);
         // send(sockfd, &altitude, sizeof(altitude), 0);
         cleanup();
-        return 0;
     }
 
 
