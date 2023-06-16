@@ -1,6 +1,6 @@
 #include "gps.h"
 
-#define PORT 1024
+#define PORT 10240
 
 int demon() {
     if (gps_driver_init() != 0) {
