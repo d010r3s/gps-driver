@@ -17,7 +17,10 @@ int main() {
                 sleep(1);
                 printf("tracking started. choose mode (1-2):\n");
                 scanf("%d", &mode);
-                demon();
+                pid_t proc_id = fork();
+                if (proc_id == 0) {
+                    demon();
+                }
             case 2:
                 sleep(1);
                 printf("tracking stopped.\n");
