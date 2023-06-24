@@ -2,7 +2,7 @@
 
 #define PORT 10240
 
-int demon() {
+main() {
     if (gps_driver_init() != 0) {
         printf("Error\n");
         return 1;
