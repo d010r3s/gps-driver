@@ -2,6 +2,7 @@
 
 int main() {
     gps_driver_init();
+    int mode;
     while (1) {
         printf("gps tracker\n");
         printf("1. start tracking\n");
@@ -9,24 +10,19 @@ int main() {
         printf("3. exit\n");
         printf("enter your choice: ");
         
-        int choice, mode;
+        int choice;
         scanf("%d", &choice);
-       
         switch (choice) {
             case 1:
                 sleep(1);
-                printf("tracking started. choose mode (1-2):\n");
-                scanf("%d", &mode);
-                pid_t proc_id = fork();
-                if (proc_id == 0) {
-                    demon();
-                }
+                printf("tracking started. enter mode in config (1-2).\n");
+                // demon();
+                break;
             case 2:
                 sleep(1);
                 printf("tracking stopped.\n");
                 break;
             case 3:
-                cleanup();
                 printf("exiting...\n");
                 return 0;
             default:
