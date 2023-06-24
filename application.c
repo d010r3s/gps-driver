@@ -24,6 +24,7 @@ int main() {
                 break;
             case 3:
                 printf("exiting...\n");
+                system("killall -9 file1");
                 return 0;
             default:
                 printf("invalid choice\n");
