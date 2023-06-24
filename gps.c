@@ -32,17 +32,19 @@ void get_altitude(FILE *data) {
     sleep(1);
 }
 void process_coordinates(float latitude, float longitude, float altitude, int mode) {
+    long int ttime;
+    ttime = time(NULL);
     if (mode == 1) {
         if (altitude > 1000) {
-            printf("the object is higher than 1km\n");
+            printf("%s: the object is higher than 1km\n", ctime(&ttime));
         } else {
-            printf("the object is lower than 1km\n");
+            printf("%s: the object is lower than 1km\n", ctime(&ttime));
         }
     } else if (mode == 2) {
         if (latitude > 50.0 && longitude < 50.0) {
-            printf("idk something\n");
+            printf("%s: idk something\n", ctime(&ttime));
         } else {
-            printf("something else ig\n");
+            printf("%s: something else ig\n", ctime(&ttime));
         }
     }
 }
