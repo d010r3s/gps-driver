@@ -3,8 +3,9 @@
 float latitude, longitude, altitude;
 float min = 1.0;
 float max = 3000.0;
-void cleanup() {
+void cleanup(FILE *file) {
     printf("performing cleanup...\n");
+    ftruncate(fileno(file), 0);
     sleep(1);
 }
 int gps_driver_init() {
@@ -12,27 +13,25 @@ int gps_driver_init() {
     sleep(1); 
     return 0;
 }
-float get_latitude() {
+void get_latitude(FILE *data) {
     srand(time(0));
     latitude = ((float)rand() / RAND_MAX) * (max - min) + min;
+    fprintf(data, "%f\n", latitude);
     sleep(1);
-    return latitude; 
 }
-float get_longitude() {
+void get_longitude(FILE *data) {
     srand(time(0));
     longitude = ((float)rand() / RAND_MAX) * (max - min) + min;
+    fprintf(data, "%f\n", longitude);
     sleep(1);
-    return longitude;
 }
-float get_altitude() {
+void get_altitude(FILE *data) {
     srand(time(0));
     altitude = ((float)rand() / RAND_MAX) * (max - min) + min;
+    fprintf(data, "%f\n", altitude);
     sleep(1);
-    return altitude;
 }
 void process_coordinates(float latitude, float longitude, float altitude, int mode) {
-    printf("mode: %d\n", mode);
-
     if (mode == 1) {
         if (altitude > 1000) {
             printf("the object is higher than 1km\n");
