@@ -10,9 +10,9 @@
 #include <stdlib.h>
 void process_coordinates(float latitude, float longitude, float altitude, int mode);
 int gps_driver_init();
-void cleanup();
-float get_latitude(); 
-float get_longitude(); 
-float get_altitude();
-int demon();
+void cleanup(FILE *file);
+void get_latitude(FILE *data); 
+void get_longitude(FILE *data); 
+void get_altitude(FILE *data);
+//int demon();
 #endif
