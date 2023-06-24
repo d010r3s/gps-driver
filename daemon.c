@@ -2,19 +2,23 @@
 
 #define PORT 10240
 
-main() {
+int main() {
+    int mode;
     if (gps_driver_init() != 0) {
         printf("Error\n");
         return 1;
     }
 
-    int mode = 1;
-
-    int sockfd = socket(AF_INET, SOCK_STREAM, 0);
-    if (sockfd < 0) {
-        perror("Socket creation failed");
-        return 1;
-    }
+    //int mode = 1;
+    FILE *config = fopen("config.txt", "r");
+    fscanf(config, "%d", &mode);
+    fclose(config);
+    printf("mode chosen: %d\n", mode);
+    // int sockfd = socket(AF_INET, SOCK_STREAM, 0);
+    // if (sockfd < 0) {
+    //     perror("Socket creation failed");
+    //     return 1;
+    // }
 
     // struct sockaddr_in server_addr;
     // server_addr.sin_family = AF_INET;
@@ -28,21 +32,27 @@ main() {
 
     while (1) {
         float latitude, longitude, altitude;
-        if (!get_longitude() && !get_altitude() && !get_latitude()) {
-            printf("error\n");
-            continue; 
+        FILE *data = fopen("data.txt", "w");
+        if (data == NULL) {
+            printf("failed to open data file.\n");
+            return 1;
         }
 
         printf("coordinates:\n");
-        printf("latitude: %f\nlongitude: %f\naltitude: %f\n", get_latitude(), get_longitude(), get_altitude());
+        get_latitude(data);
+        get_longitude(data);
+        get_altitude(data);
+        fclose(data);
+
+        data = fopen("data.txt", "r");
+        fscanf(data, "%f %f %f", &latitude, &longitude, &altitude);
+        printf("latitude: %f\nlongitude: %f\naltitude: %f\n", latitude, longitude, altitude);
+        fclose(data);
+
         sleep(1);
-        process_coordinates(get_latitude(), get_longitude(), get_altitude(), mode);
-        // send(sockfd, &latitude, sizeof(latitude), 0);
-        // send(sockfd, &longitude, sizeof(longitude), 0);
-        // send(sockfd, &altitude, sizeof(altitude), 0);
-        cleanup();
+        process_coordinates(latitude, longitude, altitude, mode);
+        cleanup(data);
     }
-
-
+    
     // close(sockfd);
 }
