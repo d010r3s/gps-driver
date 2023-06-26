@@ -7,7 +7,6 @@
 #include <stdlib.h>
 
 int main() {
-    int mode;
     float altitude, latitude, longitude;
     
     while (1) {
