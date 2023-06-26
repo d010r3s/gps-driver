@@ -12,8 +12,7 @@ int main() {
     
     while (1) {
         printf("gps tracker\n");
-        printf("1. start tracking\n");
-        printf("2. stop tracking\n");
+        printf("1-2. start tracking with entering mode\n");
         printf("3. get data\n");
         printf("4. get info\n");
         printf("5. exit\n");
@@ -23,49 +22,29 @@ int main() {
         
         printf("enter your choice: ");
         scanf("%d", &choice);
-        FILE *modes = fopen("modes.txt", "w");
-        fprintf(modes, "%d", choice);
-        fclose(modes);
         switch (choice) {
             case 1:
                 sleep(1);
-                modes = fopen("modes.txt", "r");
-                if (modes == NULL) {
-                    printf("Error opening modes.txt\n");
-                    return 1;
-                }
-                fgets(response, sizeof(response), modes);
-                printf("%s", response);
-                fclose(modes);
+                FILE *config = fopen("config.txt","w");
+                fprintf(config,"%d",choice);
+                printf("started");
+                fclose(config);
                 break;
             case 2:
                 sleep(1);
-                modes = fopen("modes.txt", "r");
-                if (modes == NULL) {
-                    printf("Error opening modes.txt\n");
-                    return 1;
-                }
-                fgets(response, sizeof(response), modes);
-                printf("%s", response);
-                fclose(modes);
+                config = fopen("config.txt","w");
+                fprintf(config,"%d",choice);
+                printf("started");
+                fclose(config);
                 break;
             case 3:
-                // demon();
                 FILE *data = fopen("data.txt", "r");
-                if (data == NULL) {
-                    printf("Error opening data.txt\n");
-                    return 1;
-                }
                 fgets(info, sizeof(info), data);
-                printf("coordinates:%s:",info);
+                printf("coordinates: %s",info);
                 fclose(data);
                 break;
             case 4:
                 FILE *logs = fopen("logs.txt", "r");
-                if (logs == NULL) {
-                    printf("Error opening logs.txt\n");
-                    return 1;
-                }
                 fgets(info, sizeof(info), logs);
                 printf("%s", info);
                 fclose(logs);
