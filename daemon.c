@@ -42,7 +42,7 @@ int main() {
             printf("Error opening modes.txt\n");
             return 1;
         }
-        fscanf(modes, "%s", modess);
+        fgets(modess, sizeof(modes), modes);
         fclose(modes);
         
         modes = fopen("modes.txt", "w");
