@@ -34,7 +34,7 @@ int main() {
         latitude = get_latitude();
         longitude = get_longitude();
         altitude = get_altitude();
-        fprintf(data, "%f\n%f\n%f\n", latitude, longitude, altitude);
+        fprintf(data, "%f %f %f\n", latitude, longitude, altitude);
         fclose(data);
         
         FILE *modes = fopen("modes.txt", "r");
