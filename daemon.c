@@ -1,39 +1,36 @@
 #include "gps.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <time.h>
 
 #define PORT 10240
 
-int main() {
+int demon() {
     int mode;
     char modess[100];
+    
     if (gps_driver_init() != 0) {
         printf("Error\n");
         return 1;
     }
 
-    //int mode = 1;
     FILE *config = fopen("config.txt", "r");
+    if (config == NULL) {
+        printf("Error opening config.txt\n");
+        return 1;
+    }
     fscanf(config, "%d", &mode);
     fclose(config);
-    printf("mode chosen: %d\n", mode);
-    // int sockfd = socket(AF_INET, SOCK_STREAM, 0);
-    // if (sockfd < 0) {
-    //     perror("Socket creation failed");
-    //     return 1;
-    // }
-
-    // struct sockaddr_in server_addr;
-    // server_addr.sin_family = AF_INET;
-    // server_addr.sin_addr.s_addr = inet_addr("127.0.0.1");
-    // server_addr.sin_port = htons(PORT);
-
-    // if (connect(sockfd, (struct sockaddr *)&server_addr, sizeof(server_addr)) < 0) {
-    //     perror("Connection failed");
-    //     return 1;
-    // }
 
     while (1) {
         float latitude, longitude, altitude;
+        
         FILE *data = fopen("data.txt", "w");
+        if (data == NULL) {
+            printf("Error opening data.txt\n");
+            return 1;
+        }
         latitude = get_latitude();
         longitude = get_longitude();
         altitude = get_altitude();
@@ -41,9 +38,18 @@ int main() {
         fclose(data);
         
         FILE *modes = fopen("modes.txt", "r");
+        if (modes == NULL) {
+            printf("Error opening modes.txt\n");
+            return 1;
+        }
         fscanf(modes, "%s", modess);
         fclose(modes);
-        modes = fopen("modes.txt","w");
+        
+        modes = fopen("modes.txt", "w");
+        if (modes == NULL) {
+            printf("Error opening modes.txt\n");
+            return 1;
+        }
         if (modess[0] == '1') {
             fprintf(modes, "tracking started. enter mode in config (1-2)");
         }
@@ -53,9 +59,15 @@ int main() {
         fclose(modes);
 
         sleep(1);
+        
         FILE *logs = fopen("logs.txt", "a");
+        if (logs == NULL) {
+            printf("Error opening logs.txt\n");
+            return 1;
+        }
         long int ttime;
         ttime = time(NULL);
+        
         if (mode == 1) {
             if (altitude > 1000) {
                 fprintf(logs, "%s: the object is higher than 1km\n", ctime(&ttime));
@@ -68,10 +80,11 @@ int main() {
             } else {
                 fprintf(logs, "%s: something else ig\n", ctime(&ttime));
             }
-    }
-      // cleanup(logs);
+        }
+        
         fclose(logs);
     }
     
-    // close(sockfd);
+    return 0;
 }
+
