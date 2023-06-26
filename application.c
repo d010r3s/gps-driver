@@ -23,18 +23,11 @@ int main() {
         
         printf("enter your choice: ");
         scanf("%d", &choice);
-        
+        FILE *modes = fopen("modes.txt", "w");
+        fprintf(modes, "%d", choice);
+        fclose(modes);
         switch (choice) {
             case 1:
-                sleep(1);
-                FILE *modes = fopen("modes.txt", "w");
-                // demon();
-                if (modes == NULL) {
-                    printf("Error opening modes.txt\n");
-                    return 1;
-                }
-                fprintf(modes, "1");
-                fclose(modes);
                 sleep(1);
                 modes = fopen("modes.txt", "r");
                 if (modes == NULL) {
@@ -46,14 +39,6 @@ int main() {
                 fclose(modes);
                 break;
             case 2:
-                // demon();
-                modes = fopen("modes.txt", "w");
-                if (modes == NULL) {
-                    printf("Error opening modes.txt\n");
-                    return 1;
-                }
-                fprintf(modes, "2");
-                fclose(modes);
                 sleep(1);
                 modes = fopen("modes.txt", "r");
                 if (modes == NULL) {
