@@ -23,7 +23,7 @@ int main() {
             case 1:
                 sleep(1);
                 FILE *modes = fopen("modes.txt", "w");
-                demon();
+                // demon();
                 if (modes == NULL) {
                     printf("Error opening modes.txt\n");
                     return 1;
@@ -41,7 +41,7 @@ int main() {
                 break;
             case 2:
                 sleep(1);
-                demon();
+                // demon();
                 modes = fopen("modes.txt", "w");
                 if (modes == NULL) {
                     printf("Error opening modes.txt\n");
@@ -61,7 +61,7 @@ int main() {
                 break;
             case 3:
                 sleep(1);
-                demon();
+                // demon();
                 FILE *data = fopen("data.txt", "r");
                 if (data == NULL) {
                     printf("Error opening data.txt\n");
