@@ -2,7 +2,7 @@
 
 #define PORT 10240
 
-int main() {
+int demon() {
     int mode;
     if (gps_driver_init() != 0) {
         printf("Error\n");
@@ -38,20 +38,31 @@ int main() {
             return 1;
         }
 
-        printf("coordinates:\n");
-        get_latitude(data);
-        get_longitude(data);
-        get_altitude(data);
-        fclose(data);
-
-        data = fopen("data.txt", "r");
-        fscanf(data, "%f %f %f", &latitude, &longitude, &altitude);
-        printf("latitude: %f\nlongitude: %f\naltitude: %f\n", latitude, longitude, altitude);
+        latitude = get_latitude();
+        longitude = get_longitude();
+        altitude = get_altitude();
+        fprintf(data, "%f\n%f\n%f\n", latitude, longitude, altitude);
         fclose(data);
 
         sleep(1);
-        process_coordinates(latitude, longitude, altitude, mode);
-        cleanup(data);
+        FILE *logs = fopen("logs.txt", "a");
+        long int ttime;
+        ttime = time(NULL);
+        if (mode == 1) {
+            if (altitude > 1000) {
+                fprintf(logs, "%s: the object is higher than 1km\n", ctime(&ttime));
+            } else {
+                fprintf(logs, "%s: the object is lower than 1km\n", ctime(&ttime));
+            }
+        } else if (mode == 2) {
+            if (latitude > 50.0 && longitude < 50.0) {
+                fprintf(logs, "%s: idk something\n", ctime(&ttime));
+            } else {
+                fprintf(logs, "%s: something else ig\n", ctime(&ttime));
+            }
+    }
+       // cleanup(data);
+        fclose(logs);
     }
     
     // close(sockfd);
