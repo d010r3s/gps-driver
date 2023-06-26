@@ -36,28 +36,6 @@ int main() {
         altitude = get_altitude();
         fprintf(data, "%f %f %f\n", latitude, longitude, altitude);
         fclose(data);
-        
-        FILE *modes = fopen("modes.txt", "r");
-        if (modes == NULL) {
-            printf("Error opening modes.txt\n");
-            return 1;
-        }
-        fgets(modess, sizeof(modes), modes);
-        fclose(modes);
-        
-        modes = fopen("modes.txt", "w");
-        if (modes == NULL) {
-            printf("Error opening modes.txt\n");
-            return 1;
-        }
-        if (modess[0] == '1') {
-            fprintf(modes, "tracking started. enter mode in config (1-2)");
-        }
-        else if (modess[0] == '2') {
-            fprintf(modes, "tracking stopped.");
-        }
-        fclose(modes);
-
         sleep(1);
         
         FILE *logs = fopen("logs.txt", "a");
