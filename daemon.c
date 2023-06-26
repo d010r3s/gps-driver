@@ -7,6 +7,7 @@
 #define PORT 10240
 
 int main() {
+ int mode;
  if (gps_driver_init() != 0) {
         printf("Error\n");
         return 1;
