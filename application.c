@@ -1,5 +1,10 @@
 #include <stdio.h>
 #include <unistd.h>
+#include <sys/socket.h>
+#include <netinet/in.h>
+#include <arpa/inet.h>
+#include <time.h>
+#include <stdlib.h>
 
 int main() {
     int mode;
