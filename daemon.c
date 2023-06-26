@@ -2,8 +2,9 @@
 
 #define PORT 10240
 
-int demon() {
+int main() {
     int mode;
+    char modess[100];
     if (gps_driver_init() != 0) {
         printf("Error\n");
         return 1;
@@ -33,16 +34,23 @@ int demon() {
     while (1) {
         float latitude, longitude, altitude;
         FILE *data = fopen("data.txt", "w");
-        if (data == NULL) {
-            printf("failed to open data file.\n");
-            return 1;
-        }
-
         latitude = get_latitude();
         longitude = get_longitude();
         altitude = get_altitude();
         fprintf(data, "%f\n%f\n%f\n", latitude, longitude, altitude);
         fclose(data);
+        
+        FILE *modes = fopen("modes.txt", "r");
+        fscanf(modes, "%s", modess);
+        fclose(modes);
+        modes = fopen("modes.txt","w");
+        if (modess[0] == '1') {
+            fprintf(modes, "tracking started. enter mode in config (1-2)");
+        }
+        else if (modess[0] == '2') {
+            fprintf(modes, "tracking stopped.");
+        }
+        fclose(modes);
 
         sleep(1);
         FILE *logs = fopen("logs.txt", "a");
@@ -61,7 +69,7 @@ int demon() {
                 fprintf(logs, "%s: something else ig\n", ctime(&ttime));
             }
     }
-       // cleanup(data);
+      // cleanup(logs);
         fclose(logs);
     }
     
