@@ -35,7 +35,7 @@ int main() {
                     printf("Error opening modes.txt\n");
                     return 1;
                 }
-                fscanf(modes, "%s\n", response);
+                fgets(response, sizeof(response), modes);
                 printf("%s", response);
                 fclose(modes);
                 break;
@@ -54,9 +54,9 @@ int main() {
                     printf("Error opening modes.txt\n");
                     return 1;
                 }
-                fscanf(modes, "%s\n", response);
-                sleep(1);
+                fgets(response, sizeof(response), modes);
                 printf("%s", response);
+
                 fclose(modes);
                 break;
             case 3:
@@ -67,8 +67,8 @@ int main() {
                     printf("Error opening data.txt\n");
                     return 1;
                 }
-                fscanf(data, "%f %f %f", &latitude, &longitude, &altitude);
-                printf("coordinates:\nlatitude: %f\nlongitude: %f\naltitude: %f\n", latitude, longitude, altitude);
+                fgets(info, sizeof(info), data);
+                printf("coordinates:%s:",info);
                 fclose(data);
                 break;
             case 4:
@@ -78,8 +78,8 @@ int main() {
                     printf("Error opening logs.txt\n");
                     return 1;
                 }
-                fscanf(logs, "%s%s", tiime, info);
-                printf("%s%s", tiime, info);
+                fgets(info, sizeof(info), logs);
+                printf("%s", info);
                 fclose(logs);
                 break;
             case 5:
