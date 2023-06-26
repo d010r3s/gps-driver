@@ -1,15 +1,10 @@
 #include <stdio.h>
-#include <time.h>
-#include <stdio.h>
 #include <unistd.h>
-#include <sys/socket.h>
-#include <netinet/in.h>
-#include <arpa/inet.h>
-#include <time.h>
-#include <stdlib.h>
+
 int main() {
     int mode;
     float altitude, latitude, longitude;
+    
     while (1) {
         printf("gps tracker\n");
         printf("1. start tracking\n");
@@ -18,47 +13,71 @@ int main() {
         printf("4. get info\n");
         printf("5. exit\n");
 
-        
         int choice;
-        char tiime[100],info[100],response[100];
-        while (1) {
+        char tiime[100], info[100], response[100];
+        
         printf("enter your choice: ");
         scanf("%d", &choice);
+        
         switch (choice) {
             case 1:
                 sleep(1);
-                // demon();
                 FILE *modes = fopen("modes.txt", "w");
+                demon();
+                if (modes == NULL) {
+                    printf("Error opening modes.txt\n");
+                    return 1;
+                }
                 fprintf(modes, "1");
                 fclose(modes);
-                modes = fopen("modes.txt","r");
+                modes = fopen("modes.txt", "r");
+                if (modes == NULL) {
+                    printf("Error opening modes.txt\n");
+                    return 1;
+                }
                 fscanf(modes, "%s\n", response);
                 printf("%s", response);
                 fclose(modes);
                 break;
             case 2:
+                sleep(1);
+                demon();
                 modes = fopen("modes.txt", "w");
-                // demon();
+                if (modes == NULL) {
+                    printf("Error opening modes.txt\n");
+                    return 1;
+                }
                 fprintf(modes, "2");
                 fclose(modes);
                 modes = fopen("modes.txt", "r");
+                if (modes == NULL) {
+                    printf("Error opening modes.txt\n");
+                    return 1;
+                }
                 fscanf(modes, "%s\n", response);
                 sleep(1);
                 printf("%s", response);
+                fclose(modes);
                 break;
             case 3:
                 sleep(1);
-                
+                demon();
                 FILE *data = fopen("data.txt", "r");
-                // demon();
+                if (data == NULL) {
+                    printf("Error opening data.txt\n");
+                    return 1;
+                }
                 fscanf(data, "%f %f %f", &latitude, &longitude, &altitude);
                 printf("coordinates:\nlatitude: %f\nlongitude: %f\naltitude: %f\n", latitude, longitude, altitude);
                 fclose(data);
                 break;
             case 4:
                 sleep(1);
-                // demon();
                 FILE *logs = fopen("logs.txt", "r");
+                if (logs == NULL) {
+                    printf("Error opening logs.txt\n");
+                    return 1;
+                }
                 fscanf(logs, "%s%s", tiime, info);
                 printf("%s%s", tiime, info);
                 fclose(logs);
@@ -71,6 +90,6 @@ int main() {
                 printf("invalid choice\n");
         }
     }
-    }
+    
     return 0;
 }
