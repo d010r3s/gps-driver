@@ -19,7 +19,7 @@ int main() {
         printf("5. exit\n");
 
         int choice;
-        char tiime[100], info[100], response[100];
+        char info[1024], response[1024];
         
         printf("enter your choice: ");
         scanf("%d", &choice);
@@ -35,6 +35,7 @@ int main() {
                 }
                 fprintf(modes, "1");
                 fclose(modes);
+                sleep(1);
                 modes = fopen("modes.txt", "r");
                 if (modes == NULL) {
                     printf("Error opening modes.txt\n");
@@ -45,7 +46,6 @@ int main() {
                 fclose(modes);
                 break;
             case 2:
-                sleep(1);
                 // demon();
                 modes = fopen("modes.txt", "w");
                 if (modes == NULL) {
@@ -54,6 +54,7 @@ int main() {
                 }
                 fprintf(modes, "2");
                 fclose(modes);
+                sleep(1);
                 modes = fopen("modes.txt", "r");
                 if (modes == NULL) {
                     printf("Error opening modes.txt\n");
@@ -61,11 +62,9 @@ int main() {
                 }
                 fgets(response, sizeof(response), modes);
                 printf("%s", response);
-
                 fclose(modes);
                 break;
             case 3:
-                sleep(1);
                 // demon();
                 FILE *data = fopen("data.txt", "r");
                 if (data == NULL) {
@@ -77,7 +76,6 @@ int main() {
                 fclose(data);
                 break;
             case 4:
-                sleep(1);
                 FILE *logs = fopen("logs.txt", "r");
                 if (logs == NULL) {
                     printf("Error opening logs.txt\n");
