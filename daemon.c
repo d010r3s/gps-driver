@@ -14,7 +14,7 @@ int main() {
         printf("Error\n");
         return 1;
     }
-
+    sleep(5);
     FILE *config = fopen("config.txt", "r");
     if (config == NULL) {
         printf("Error opening config.txt\n");
