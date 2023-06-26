@@ -6,7 +6,7 @@
 
 #define PORT 10240
 
-int demon() {
+int main() {
     int mode;
     char modess[100];
     
